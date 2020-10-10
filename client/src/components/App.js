@@ -1,7 +1,7 @@
 import React from 'react'
-import { Signin, Signup } from './Form_view'
 import { SigninPage, SignupPage } from './pages/Authpages'
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import Index from './pages';
 function App() {
     return (
         <Router>
