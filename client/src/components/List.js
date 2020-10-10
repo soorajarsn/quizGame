@@ -131,7 +131,7 @@ const Options = ({ questionNumber, options, setAns }) => {
       {options.map((option, index) => (
         <InputContainer key={option}>
           <RadioInput type="radio" name={questionNumber} value={option} setAns={setAns} />
-          <Row action borderTop={index === 0 ? true : false}>
+          <Row action={true} borderTop={index === 0 ? true : false}>
             <Li>
               <span>{option}</span>
             </Li>
@@ -155,7 +155,6 @@ function ListRow(props) {
   function bookMarkQuestion(e) {
     setBookmarked(prev => !prev);
   }
-  console.log('rendered');
   //when next/previous button are clicked
   function changeActiveQuestion(e) {
     document.querySelector("div.question.active").classList.remove("active");

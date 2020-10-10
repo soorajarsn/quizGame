@@ -8,18 +8,18 @@ const app = express();
 
 const socket = require('socket.io');
 const http = require('http').createServer(app);
-const io = socket(http);
+// const io = socket(http);
 
-io.on('connection',socket => {
-    let interval;
-    console.log("client connected");
-    socket.on('start_timer',token => {
-        console.log(token);
-        interval = setInterval(()=> {
-            socket.emit('time_up',token);
-        },1000*60*30);
-    })
-});
+// io.on('connection',socket => {
+//     let interval;
+//     console.log("client connected");
+//     socket.on('start_timer',token => {
+//         console.log(token);
+//         interval = setInterval(()=> {
+//             socket.emit('time_up',token);
+//         },1000*60);
+//     })
+// });
 
 app.use(express.static(path.join(__dirname,"client/dist")));
 app.use(compression());

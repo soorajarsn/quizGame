@@ -5,7 +5,6 @@ import {Main} from './Index';
 import {OrderedList} from '../OrderedList';
 import ListRow from '../List';
 import Axios from "axios";
-import socketIOClient from "socket.io-client";
 import { AuthContext } from '../../state/Store';
 const Grid = styled.div`
     display:grid;
@@ -47,6 +46,7 @@ const GridColumn = styled.div`
 const MainModified = styled(Main)`
     box-shadow:0 0 .4rem 0 rgb(200,200,200);
     justify-content:flex-end;
+    align-items:flex-end;
     height:calc(100vh - 4.5rem);
     padding:0;
     @media (min-width:700px){
@@ -125,8 +125,6 @@ function TestPage(props) {
     });
   }
   useEffect(() => {
-    let socket = socketIOClient();
-    socket.emit('start_timer',auth.state.token);
     let timer = setInterval(() => {
       setTime(time => {
         if(time.minute*60 + time.second < maxTimeNumeric){

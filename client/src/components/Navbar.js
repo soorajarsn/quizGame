@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useContext} from "react";
 import styled from "styled-components";
 import logo from "./assets/logo.jpg";
 import { LinkButton, AccentButton, OutlineButton } from "./Button";
