@@ -24,16 +24,59 @@ const Flex = styled.div`
   box-shadow: 0.3rem 0.3rem 0.5rem 0 rgb(200, 200, 200);
   flex-direction: ${props => (props.signinForm ? "column-reverse" : "column")};
   padding: 3rem 1rem;
+  @media (min-width: 700px) {
+    flex-direction: row;
+    padding: 3rem 2rem;
+    width: 40rem;
+  }
+  @media (min-width: 800px) {
+    width: 45rem;
+  }
+  @media (min-width: 1000px) {
+    padding: 3rem 5rem;
+    width: 55rem;
+  }
+  @media (min-width: 1200px) {
+    width: 60rem;
+  }
+  @media (min-width: 1400px) {
+    width: 65rem;
+  }
 `;
 const FormContainer = styled.div`
   flex-grow: 1;
   padding-right: ${props => (!props.paddingLeft && "3rem") || "0"};
   padding-left: ${props => (props.paddingLeft && "3rem") || "0"};
+  @media (max-width: 699px) {
+    width: 100%;
+    padding: 1rem;
+  }
+  @media (max-width: 400px) {
+    padding: 0;
+  }
+  @media (min-width: 1400px) {
+    padding-right: ${props => (!props.paddingLeft && "6rem") || "0"};
+    padding-left: ${props => (props.paddingLeft && "6rem") || "0"};
+  }
 `;
 const FigureContainer = styled.div`
   width: 100%;
   max-width: 25rem;
   height: 33rem;
+  @media (min-width: 1000px) {
+    height: 35rem;
+  }
+  padding-left: ${props => (!props.paddingRight && "2rem") || "0"};
+  padding-right: ${props => (props.paddingRight && "2rem") || "0"};
+  @media (max-width: 700px) {
+    padding: 0;
+  }
+  @media (min-width: 700px) {
+    width: 17rem;
+  }
+  @media (min-width: 1000px) {
+    width: 25rem;
+  }
 `;
 const SocialIconContainer = styled.div`
   margin-top: 2rem;
