@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import styled from "styled-components";
 import { Signup, Signin } from "../Form_view";
 import Figure from "../Figure";
 import { Facebook, GooglePlus, Twitter } from "../icon";
+import { AuthContext } from "../../state/Store";
+import { Redirect } from "react-router-dom";
+import Loader from "../Loader";
 
 const Main = styled.div`
   min-height: 100vh;
@@ -108,12 +111,20 @@ const GooglePlusIcon = styled(GooglePlus)`
   margin-right: 1rem;
 `;
 export function SignupPage(props) {
+  const auth = useContext(AuthContext);
+  useEffect(()=>{
+    if(auth.state.userLoggingIn)document.querySelector('body').classList.add('clip-body');
+    else document.querySelector('body').classList.remove('body');
+  },[auth.state.userLoggingIn]);
   return (
     <React.Fragment>
+      {auth.state.userLoggedIn ? (
+        <Redirect to={(props.location.state && props.location.state.from) || props.history.goBack()} />
+      ) : (
         <Main>
           <Flex>
             <FormContainer>
-              <Signup/>
+              <Signup dispatch={auth.dispatch}/>
             </FormContainer>
             <FigureContainer>
               <Figure
@@ -127,13 +138,22 @@ export function SignupPage(props) {
             </FigureContainer>
           </Flex>
         </Main>
+      )}
     </React.Fragment>
   );
 }
 
 export function SigninPage(props) {
+  const auth = useContext(AuthContext);
+  useEffect(()=>{
+    if(auth.state.userLoggingIn)document.querySelector('body').classList.add('clip-body');
+    else document.querySelector('body').classList.remove('body');
+  },[auth.state.userLoggingIn]);
   return (
     <React.Fragment>
+      {auth.state.userLoggedIn ? (
+        <Redirect to="/" />
+      ) : (
         <Main>
           <Flex signinForm>
             <FigureContainer paddingRight>
@@ -147,7 +167,7 @@ export function SigninPage(props) {
               />
             </FigureContainer>
             <FormContainer paddingLeft signinForm>
-              <Signin />
+              <Signin dispatch={auth.dispatch} />
               <SocialIconContainer>
                 <span>Or begin with</span>
                 <FacebookIcon />
@@ -157,6 +177,8 @@ export function SigninPage(props) {
             </FormContainer>
           </Flex>
         </Main>
+      )}
+      {auth.state.userLoggingIn && <Loader /> }
     </React.Fragment>
   );
 }

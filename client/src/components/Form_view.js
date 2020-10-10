@@ -1,4 +1,5 @@
 import React from "react";
+import {loginUser,signupUser} from '../state/auth/authActions';
 import styled from "styled-components";
 import { useLabledIconInput } from "./Input";
 import { CheckboxInput } from "./Input_view";
@@ -21,8 +22,21 @@ export function Signup(props) {
   const [email, emailInput] = useLabledIconInput({ type: "email", name: "signup_email", placeholder: "Your Email", icon: "fa-envelope" });
   const [password, passwordInput] = useLabledIconInput({ type: "password", name: "signup_password", placeholder: "Password", icon: "fa-lock" });
   const [repeatedPassword, repeatPasswordInput] = useLabledIconInput({ type: "password", name: "signup_repeatPassword", placeholder: "Repeat your password", icon: "fa-lock" });
+  function handleSubmit(e) {
+    if(name && email && password && repeatedPassword){
+      if(password === repeatedPassword)
+        signupUser(props.dispatch,{name,email,password,repeatedPassword});
+      else{
+        console.log('password do not match');
+      }
+    }
+    else{
+      console.log('please fill in all the fields');
+    }
+    e.preventDefault();
+  }
   return (
-    <Form>
+    <Form onSubmit={handleSubmit}>
         <Title>Sign up</Title>
       <FormField>{nameInput}</FormField>
       <FormField>{emailInput}</FormField>
@@ -40,13 +54,22 @@ export function Signup(props) {
 export function Signin(props) {
   const [email, emailInput] = useLabledIconInput({ type: "email", name: "signin_email", placeholder: "Your Email", icon: "fa-envelope" });
   const [password, passwordInput] = useLabledIconInput({ type: "password", name: "signin_email", placeholder: "Password", icon: "fa-lock" });
+  function handleSubmit(e) {
+    if(email && password){
+        loginUser(props.dispatch,{email,password});
+    }
+    else{
+      console.log('please fill in all the fields');
+    }
+    event.preventDefault();
+  }
   return (
-    <Form>
+    <Form onSubmit={handleSubmit}>
       <Title>Sign in</Title>
       <FormField>{emailInput}</FormField>
       <FormField>{passwordInput}</FormField>
       <CheckboxInput name="signup_term">
-        Remember Me
+        Remember Password
       </CheckboxInput>
       <ButtonContainer>
         <AccentButton>Login</AccentButton>
