@@ -26,6 +26,7 @@ export const OutlineButton = styled(AccentButton)`
     background:white;
     &:hover{
         background:white;
+        color:${PRIMARY_COLOR_FADED};
     }
 `
 export const LinkButton = styled(OutlineButton)`
@@ -37,7 +38,6 @@ export const LinkButton = styled(OutlineButton)`
     }
 `
 export const Bookmark = styled(LinkButton)`
-    border:none;
     color:grey;
     width:fit-content;
     height:100%;
