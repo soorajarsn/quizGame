@@ -46,7 +46,7 @@ export function Signin(props) {
       <FormField>{emailInput}</FormField>
       <FormField>{passwordInput}</FormField>
       <CheckboxInput name="signup_term">
-        Remember Password
+        Remember Me
       </CheckboxInput>
       <ButtonContainer>
         <AccentButton>Login</AccentButton>
