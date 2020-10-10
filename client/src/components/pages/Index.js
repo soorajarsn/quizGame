@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import indexHero from "../assets/index_hero.webp";
@@ -171,6 +171,9 @@ const topics = [
 ];
 
 function Index(props) {
+  useEffect(()=>{
+    window.scrollTo(0,0);
+  },[])
   return (
     <React.Fragment>
       <IndexNavbar />
@@ -186,7 +189,7 @@ function Index(props) {
       <Main>
         <LimitedWidthQuizesContainer>
           {topics.map(topic => (
-            <Topic key={topic.title} to="">
+            <Topic key={topic.title} to={"/test/"+topic.title}>
               <Img src={topic.img} />
               <p>{topic.title}</p>
             </Topic>

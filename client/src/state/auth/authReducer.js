@@ -12,8 +12,8 @@ import { LOGIN_REQUEST,
     LOAD_USER_ERROR} from "./authConsts";
 
 const initialState = {
-    token:localStorage.getItem('token'),
-    userLoggedIn:!!localStorage.getItem('token'),
+    token:localStorage.getItem('quizmeAuthToken'),
+    userLoggedIn:!!localStorage.getItem('quizmeAuthToken'),
     userLoggingIn:false,
     userName:'',
     userId:'',
@@ -37,7 +37,7 @@ const authReducer = (state = initialState, action) =>{
             return {...state,userLoggingIn:true,loginError:'',signupError:'',recoverError:''};
         case LOGIN_SUCCESS:
         case SIGNUP_SUCCESS:
-            localStorage.setItem('token',action.payload.token);
+            localStorage.setItem('quizmeAuthToken',action.payload.token);
             return {
                 ...state,
                 token:action.payload.token,
@@ -48,7 +48,7 @@ const authReducer = (state = initialState, action) =>{
                 recoverError:''
             }
         case LOGIN_ERROR:
-            localStorage.removeItem('token');
+            localStorage.removeItem('quizmeAuthToken');
             return {
                 ...state,
                 token:null,
@@ -58,7 +58,7 @@ const authReducer = (state = initialState, action) =>{
                 signupError:''
             }
         case SIGNUP_ERROR:
-            localStorage.removeItem('token');
+            localStorage.removeItem('quizmeAuthToken');
             return {
                 ...state,
                 token:null,
@@ -68,7 +68,7 @@ const authReducer = (state = initialState, action) =>{
                 signupError: action.payload
             }
         case RECOVER_ERROR:
-            localStorage.removeItem('token');
+            localStorage.removeItem('quizmeAuthToken');
             return {
                 ...state,
                 token:null,
@@ -78,7 +78,7 @@ const authReducer = (state = initialState, action) =>{
                 signupError: ''
             }
         case RECOVER_SUCCESS:
-            localStorage.removeItem('token');
+            localStorage.removeItem('quizmeAuthToken');
             return {
                 ...state,
                 token:null,
@@ -90,7 +90,7 @@ const authReducer = (state = initialState, action) =>{
             }
         case LOGOUT_SUCCESS:
         case LOAD_USER_ERROR:
-            localStorage.removeItem('token');
+            localStorage.removeItem('quizmeAuthToken');
             console.log('logout success');
             return {
                 ...state,

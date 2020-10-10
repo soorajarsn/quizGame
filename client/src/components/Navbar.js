@@ -176,7 +176,7 @@ export function Navbar(props) {
           <LinkButton padding=".5rem">Need Help?</LinkButton>
           <AccentButton aria-controls="submit" onClick={props.handleSubmit}>Submit Test</AccentButton>
           <UserWrapper onClick={showPopover}>
-            <span>{auth.state.userName}</span>
+            <span>{auth.state.userName||"Sooraj Shukla"}</span>
             <Popover className="profile-popover" aria-hidden="true">
               <span onClick={() => auth.dispatch(logOut())}>Logout</span>
             </Popover>

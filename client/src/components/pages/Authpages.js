@@ -149,10 +149,13 @@ export function SigninPage(props) {
     if(auth.state.userLoggingIn)document.querySelector('body').classList.add('clip-body');
     else document.querySelector('body').classList.remove('body');
   },[auth.state.userLoggingIn]);
+  useEffect(()=>{
+    window.scrollTo(0,0);
+  },[])
   return (
     <React.Fragment>
       {auth.state.userLoggedIn ? (
-        <Redirect to="/" />
+        <Redirect to={(props.location.state && props.location.state.from) || props.history.goBack()} />
       ) : (
         <Main>
           <Flex signinForm>
