@@ -70,7 +70,7 @@ export function SignupPage(props) {
         <Main>
           <Flex>
             <FormContainer>
-              <Signup dispatch={auth.dispatch}/>
+              <Signup/>
             </FormContainer>
             <FigureContainer>
               <Figure
@@ -104,7 +104,7 @@ export function SigninPage(props) {
               />
             </FigureContainer>
             <FormContainer paddingLeft signinForm>
-              <Signin dispatch={auth.dispatch} />
+              <Signin />
               <SocialIconContainer>
                 <span>Or begin with</span>
                 <FacebookIcon />
