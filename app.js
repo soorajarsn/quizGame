@@ -6,8 +6,8 @@ const path = require('path');
 const routes = require('./backend/routes/mainRoutes');
 const app = express();
 
-const socket = require('socket.io');
-const http = require('http').createServer(app);
+// const socket = require('socket.io');
+// const http = require('http').createServer(app);
 // const io = socket(http);
 
 // io.on('connection',socket => {
@@ -31,4 +31,4 @@ app.use('/',routes);
 
 const PORT = process.env.PORT || 3000;
 
-http.listen(PORT,()=>{console.log(`Server started running on the Port ${PORT}`)});
+app.listen(PORT,()=>{console.log(`Server started running on the Port ${PORT}`)});
