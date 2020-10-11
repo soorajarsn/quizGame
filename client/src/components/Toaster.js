@@ -1,5 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import styled,{keyframes} from "styled-components";
+import { InfoContext } from "../state/Store";
+import { clearError,clearSuccess, clearWarning } from "../state/info/infoActions";
 const getInFromRight = keyframes`
     from {
         transform: translateX(105%);
@@ -112,9 +114,12 @@ const ToasterWarning = styled(Toaster)`
   }
 `;
 export const ToasterComponent = props => {
+  const info = useContext(InfoContext);
   useEffect(()=>{
     setTimeout(()=>{
-      document.getElementById('info-portal').innerHTML = "";
+      info.dispatch(clearError());
+      info.dispatch(clearSuccess());
+      info.dispatch(clearWarning());
     },1000*5);
   },[])
   return (
