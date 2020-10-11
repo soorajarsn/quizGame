@@ -1,7 +1,7 @@
 import { GENERATE_ERROR_MSG, CLEAR_ERROR,GENERATE_WARNING_MSG, GENERATE_SUCCESS_MSG, CLEAR_SUCCESS, CLEAR_WARNING } from "./infoConsts";
 
 const initialState = {
-    error:'Someting went wrong, Please try again',
+    error:'',
     warning:'',
     success:''
 }
