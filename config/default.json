@@ -1,0 +1,4 @@
+{
+    "jwtSecret":"lsfjoquezmelfjsoquezme12323@quezme",
+    "databaseUrl": "mongodb+srv://admin-sooraj:abcsooraj@quizme.dh57k.mongodb.net/quizme?retryWrites=true&w=majority"
+}
