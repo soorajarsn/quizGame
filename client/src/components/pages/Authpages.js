@@ -3,9 +3,11 @@ import styled from "styled-components";
 import { Signup, Signin } from "../Form_view";
 import Figure from "../Figure";
 import { Facebook, GooglePlus, Twitter } from "../icon";
-import { AuthContext } from "../../state/Store";
+import { AuthContext, InfoContext } from "../../state/Store";
 import { Redirect } from "react-router-dom";
 import Loader from "../Loader";
+import {clearError, generateError } from "../../state/info/infoActions";
+import { clearMsgs } from "../../state/auth/authActions";
 
 const Main = styled.div`
   min-height: 100vh;
@@ -112,10 +114,26 @@ const GooglePlusIcon = styled(GooglePlus)`
 `;
 export function SignupPage(props) {
   const auth = useContext(AuthContext);
+  const info = useContext(InfoContext);
   useEffect(()=>{
     if(auth.state.userLoggingIn)document.querySelector('body').classList.add('clip-body');
     else document.querySelector('body').classList.remove('body');
   },[auth.state.userLoggingIn]);
+  useEffect(()=>{
+    if(auth.state.signupError){
+      info.dispatch(clearError());
+      info.dispatch(generateError(auth.state.signupError));
+    }
+  },[auth.state.signupError]);
+  useEffect(()=>{
+
+    const clearLogs = () => {
+      console.log('logs cleared');
+      auth.dispatch(clearMsgs());
+      info.dispatch(clearError());
+    }
+    clearLogs();
+  },[])
   return (
     <React.Fragment>
       {auth.state.userLoggedIn ? (
@@ -145,10 +163,25 @@ export function SignupPage(props) {
 
 export function SigninPage(props) {
   const auth = useContext(AuthContext);
+  const info = useContext(InfoContext);
   useEffect(()=>{
     if(auth.state.userLoggingIn)document.querySelector('body').classList.add('clip-body');
     else document.querySelector('body').classList.remove('body');
   },[auth.state.userLoggingIn]);
+  useEffect(()=>{
+    if(auth.state.loginError){
+      info.dispatch(clearError());
+      info.dispatch(generateError(auth.state.loginError));
+    }
+  },[auth.state.loginError]);
+  useEffect(()=>{
+    const clearLogs = () => {
+      console.log('logs cleared');
+      auth.dispatch(clearMsgs());
+      info.dispatch(clearError());
+    }
+    clearLogs();
+  },[])
   useEffect(()=>{
     window.scrollTo(0,0);
   },[])

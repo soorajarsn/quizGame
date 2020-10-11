@@ -10,7 +10,8 @@ import { LOGIN_SUCCESS,
          SIGNUP_ERROR,
          LOAD_USER_SUCCESS,
          LOAD_USER_ERROR,
-         LOGOUT_SUCCESS} from './authConsts';
+         LOGOUT_SUCCESS,
+         CLEAR_MSGS} from './authConsts';
 
 
 
@@ -29,6 +30,8 @@ export const recoverSuccess = (msg) => ({type:RECOVER_SUCCESS,payload:msg});
 export const loadUserSuccess = (data) => ({type:LOAD_USER_SUCCESS,payload:data});
 export const loadUserError = (err) => ({type:LOAD_USER_ERROR,payload:err});
 
+export const clearMsgs = ()=>({type:CLEAR_MSGS});
+
 export const logOut = () => ({type:LOGOUT_SUCCESS});
 
 export const loadUser = (dispatch,state)  => {
@@ -39,11 +42,6 @@ export const loadUser = (dispatch,state)  => {
         })
         .catch(err => {
             console.log(err);
-            if(err.response){
-                dispatch(loadUserError(err.response.errorMsg));
-            }
-            else
-                dispatch(loadUserError("Something went wrong"));
         });
 }
 export const getConfig = (state) => {
@@ -70,7 +68,7 @@ export const loginUser = (dispatch,body) => {
         .catch(err => {
             if(err.response){
                 console.log(err.response);
-                dispatch(loginError(err.response.errorMsg));
+                dispatch(loginError(err.response.data.errorMsg));
             }
             else
                 dispatch(loginError('Something went wrong'));
@@ -88,7 +86,7 @@ export const signupUser = (dispatch, body) => {
         .catch(err => {
             if(err.response){
                 console.log(err.response);
-                dispatch(signupError(err.response.errorMsg));
+                dispatch(signupError(err.response.data.errorMsg));
             }
             else
                 dispatch(signupError('Something went wrong'));

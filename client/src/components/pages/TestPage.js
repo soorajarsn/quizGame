@@ -5,7 +5,8 @@ import { Main } from "./Index";
 import { OrderedList } from "../OrderedList";
 import ListRow from "../List";
 import Axios from "axios";
-import { AuthContext } from "../../state/Store";
+import { AuthContext, InfoContext } from "../../state/Store";
+import {clearError} from '../../state/info/infoActions';
 import {Redirect} from 'react-router-dom';
 const Grid = styled.div`
   display: grid;
@@ -150,6 +151,10 @@ function TestPage(props) {
   useEffect(() => {
     window.scrollTo();
   }, []);
+  const info = useContext(InfoContext);
+  useEffect(()=>{
+    info.dispatch(clearError());
+  },[])
   function handleSubmit(e) {
     if (e.currentTarget.getAttribute("aria-controls") === "submit") {
       Axios.post("/api/post/quizResponse?topic=" + topic, answers);

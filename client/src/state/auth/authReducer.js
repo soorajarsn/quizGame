@@ -9,7 +9,8 @@ import { LOGIN_REQUEST,
     RECOVER_REQUEST, 
     LOGOUT_SUCCESS,
     LOAD_USER_SUCCESS,
-    LOAD_USER_ERROR} from "./authConsts";
+    LOAD_USER_ERROR,
+    CLEAR_MSGS} from "./authConsts";
 
 const initialState = {
     token:localStorage.getItem('quizmeAuthToken'),
@@ -24,6 +25,7 @@ const initialState = {
 }
 
 const authReducer = (state = initialState, action) =>{
+    console.log(action);
     switch(action.type){
         case LOAD_USER_SUCCESS:
             return {
@@ -97,6 +99,14 @@ const authReducer = (state = initialState, action) =>{
                 token:null,
                 userLoggingIn:false,
                 userLoggedIn:false
+            }
+        case CLEAR_MSGS:
+            return {
+                ...state,
+                recoverError:'',
+                signupError:'',
+                loginError:'',
+                recoverMsg:''
             }
         default:
             return state;

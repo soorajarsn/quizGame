@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import indexHero from "../assets/index_hero.webp";
 import { IndexNavbar } from "../Navbar";
-import { ToasterComponent } from "../Toaster";
+import { InfoContext } from "../../state/Store";
+import { clearError } from "../../state/info/infoActions";
 const HeroContainer = styled.div`
   position: relative;
   display: flex;
@@ -172,6 +173,10 @@ const topics = [
 ];
 
 function Index(props) {
+  const info = useContext(InfoContext);
+  useEffect(()=>{
+    info.dispatch(clearError());
+  },[])
   useEffect(()=>{
     window.scrollTo(0,0);
   },[])
