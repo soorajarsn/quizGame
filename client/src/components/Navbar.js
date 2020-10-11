@@ -63,7 +63,7 @@ export const IndexNavbar = props => {
         <LogoContainer>
           <Logo src={logo} alt="" />
         </LogoContainer>
-        {!auth.state.userLoggedIn && (
+        {!auth.state.userLoggedIn ? (
           <ButtonGroup>
             <Link to="/signin">
               <AccentButton>Login</AccentButton>
@@ -72,7 +72,11 @@ export const IndexNavbar = props => {
               <OutlineButton>Register</OutlineButton>
             </Link>
           </ButtonGroup>
-        )}
+        ):
+        <ButtonGroup>
+          <AccentButton onClick={()=>auth.dispatch(logOut())}>Logout</AccentButton>
+        </ButtonGroup>
+        }
       </IndexNav>
     </IndexNavContainer>
   );
