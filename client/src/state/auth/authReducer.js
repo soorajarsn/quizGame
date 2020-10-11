@@ -21,7 +21,8 @@ const initialState = {
     recoverMsg:'',
     loginError:'',
     signupError:'',
-    recoverError:''
+    recoverError:'',
+    isAdmin:false
 }
 
 const authReducer = (state = initialState, action) =>{
@@ -47,7 +48,8 @@ const authReducer = (state = initialState, action) =>{
                 userLoggingIn:false,
                 loginError:'',
                 signupError:'',
-                recoverError:''
+                recoverError:'',
+                isAdmin:action.payload.isAdmin || false
             }
         case LOGIN_ERROR:
             localStorage.removeItem('quizmeAuthToken');

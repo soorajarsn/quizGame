@@ -9,6 +9,8 @@ const getNamespace = async function (collection) {
     return client.db(dbName).collection(collection);
   } catch (err) {
     console.log(err);
+    await client.connect();
+    return client.db(dbName).collection(collection);
   }
 };
 const insertOne = function (namespace, doc) {
@@ -42,6 +44,12 @@ const deleteDoc = function (namespace, query) {
     console.log("deleted successfully");
   });
 };
+// const update = async function(){
+//   await client.connect();
+  
+//   client.db(dbName).collection('quizes').updateOne({topic:"Node.js"},{$pull:{questions:{question:''}}});
+// }
+// update();
 module.exports = {
   getNamespace,
   insertOne,

@@ -7,6 +7,7 @@ import Store, { AuthContext, InfoContext } from "../state/Store";
 import { loadUser } from "../state/auth/authActions";
 import TestPage from "./pages/TestPage";
 import { ToasterComponent } from "./Toaster";
+import AdminPage from "./pages/AdminPage";
 function App() {
   const auth = useContext(AuthContext);
   const info = useContext(InfoContext);
@@ -23,6 +24,7 @@ function App() {
           <Route exact={true} path="/signin" render={props => <SigninPage {...props} />} />
           <Route exact={true} path="/signup" render={props => <SignupPage {...props} />} />
           <Route exact={true} path="/test/:topic" render={props => <TestPage {...props} />} />
+          <Route exact={true} path="/admin/createQuestion" render={props => <AdminPage {...props} />} />
         </Switch>
       </Router>
       {info.state.error && ReactDOM.createPortal(<ToasterComponent text={info.state.error} failure/>,document.getElementById('info-portal'))}
