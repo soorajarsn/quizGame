@@ -12,11 +12,12 @@ export const Li = styled.li`
     position: relative;
     left: 10px;
   }
+  user-select:none;
 `;
 const StyledCheck = styled(Check)`
   display: ${props => (props.checked ? "block" : "none")};
   position: absolute;
-  top: .5rem;
+  top: 0.5rem;
   left: -2.4rem;
   height: 1rem;
   width: 1rem;
@@ -32,6 +33,7 @@ const Row = styled.div`
     border-right: ${props => (props.action ? "" : "5px solid rgb(216, 38, 62);")};
   }
   ${Li} {
+    min-height: 4rem;
     font-weight: ${props => (props.action ? "bold" : "regular")};
     span {
       font-weight: 400;
@@ -85,6 +87,7 @@ const QuestionContainer = styled.div`
   }
   @media (min-width: 1000px) {
     left: 400px;
+    min-width:50%;
   }
   @media (min-width: 700px) and (max-width: 1000px) {
     padding-right: 1rem;
@@ -124,13 +127,18 @@ const InputContainer = styled.div`
     transition: transform 0.1s ease-in-out;
     border: 1px solid white;
   }
+  ${Row}{
+    ${Li}{
+      min-height:unset;
+    }
+  }
 `;
 const Options = ({ questionNumber, options, setAns }) => {
   return (
     <OrderedList type="A">
       {options.map((option, index) => (
         <InputContainer key={option}>
-          <RadioInput type="radio" name={questionNumber} value={option} setAns={setAns} />
+          <RadioInput type="radio" name={questionNumber} value={index+1} setAns={setAns} />
           <Row action={true} borderTop={index === 0 ? true : false}>
             <Li>
               <span>{option}</span>
@@ -164,7 +172,8 @@ function ListRow(props) {
   return (
     <RowContainer>
       <Row aria-label="row" id={"question" + questionNumber} className={"question " + (props.active && "active") || ""} onClick={makeActive}>
-        <Li checked={checked}>{/* checked will become true when user attemp the question */}
+        <Li checked={checked}>
+          {/* checked will become true when user attemp the question */}
           <span>{props.children.question}</span>
           <StyledCheck checked={checked} />
         </Li>

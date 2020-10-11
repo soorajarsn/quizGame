@@ -131,45 +131,45 @@ export const Main = styled.div`
 
 const topics = [
   {
-    title: "Node.js Beginner",
+    title: "Node.js",
     img: "https://cdn-media-1.freecodecamp.org/images/1*DF0g7bNW5e2z9XS9N2lAiw.jpeg",
   },
-  {
-    title: "React.js",
-    img: "https://www.freecodecamp.org/news/content/images/2020/02/Ekran-Resmi-2019-11-18-18.08.13.png",
-  },
-  {
-    title: "C language",
-    img: "https://blog.techiehunter.org/wp-content/uploads/2018/09/product_16032_product_shot_wide_image.jpg",
-  },
+  // {
+  //   title: "React.js",
+  //   img: "https://www.freecodecamp.org/news/content/images/2020/02/Ekran-Resmi-2019-11-18-18.08.13.png",
+  // },
+  // {
+  //   title: "C language",
+  //   img: "https://blog.techiehunter.org/wp-content/uploads/2018/09/product_16032_product_shot_wide_image.jpg",
+  // },
   {
     title: "Data Structures",
     img: "https://cdn-media-1.freecodecamp.org/images/1*s6hhrgR5_tXpO_j7uKaHMw.png",
   },
-  {
-    title: "Algorithms",
-    img: "https://hbr.org/resources/images/article_assets/2019/11/Nov19_19_1148576363-1.jpg",
-  },
-  {
-    title: "AngularJs",
-    img: "https://www.freecodecamp.org/news/content/images/2020/04/Copy-of-Copy-of-Travel-Photography.png",
-  },
-  { title: "Vue.js", img: "https://i1.wp.com/storage.googleapis.com/blog-images-backup/1*wFL3csJ96lQpY0IVT9SE3w.jpeg?ssl=1" },
-  { title: "Databases", img: "https://svitla.com/uploads_converted/0/2135-database_management_software.webp?1560161553" },
-  { title: "Operating Systems", img: "https://miro.medium.com/max/1200/1*72cktuehSngJboCjBkOXew.jpeg" },
-  {
-    title: "System Design",
-    img: "https://puncsky.github.com/images/crack-the-system-design-interview/pinterest-arch-overview.png",
-  },
-  {
-    title: "Bootstrap",
-    img: "https://i2.wp.com/wp.laravel-news.com/wp-content/uploads/2017/11/bootstrap-4-preset.png?resize=2200%2C1125",
-  },
-  {
-    title: "MongoDb",
-    img: "https://siliconangle.com/wp-content/blogs.dir/1/files/2020/06/1-3.jpg",
-  },
-  { title: "Mysql", img: "https://s3.amazonaws.com/afrostatic.afroshok/media/articles/2018/12/07/mysql-article-1.jpg" },
+  // {
+  //   title: "Algorithms",
+  //   img: "https://hbr.org/resources/images/article_assets/2019/11/Nov19_19_1148576363-1.jpg",
+  // },
+  // {
+  //   title: "AngularJs",
+  //   img: "https://www.freecodecamp.org/news/content/images/2020/04/Copy-of-Copy-of-Travel-Photography.png",
+  // },
+  // { title: "Vue.js", img: "https://i1.wp.com/storage.googleapis.com/blog-images-backup/1*wFL3csJ96lQpY0IVT9SE3w.jpeg?ssl=1" },
+  // { title: "Databases", img: "https://svitla.com/uploads_converted/0/2135-database_management_software.webp?1560161553" },
+  // { title: "Operating Systems", img: "https://miro.medium.com/max/1200/1*72cktuehSngJboCjBkOXew.jpeg" },
+  // {
+  //   title: "System Design",
+  //   img: "https://puncsky.github.com/images/crack-the-system-design-interview/pinterest-arch-overview.png",
+  // },
+  // {
+  //   title: "Bootstrap",
+  //   img: "https://i2.wp.com/wp.laravel-news.com/wp-content/uploads/2017/11/bootstrap-4-preset.png?resize=2200%2C1125",
+  // },
+  // {
+  //   title: "MongoDb",
+  //   img: "https://siliconangle.com/wp-content/blogs.dir/1/files/2020/06/1-3.jpg",
+  // },
+  // { title: "Mysql", img: "https://s3.amazonaws.com/afrostatic.afroshok/media/articles/2018/12/07/mysql-article-1.jpg" },
 ];
 
 function Index(props) {

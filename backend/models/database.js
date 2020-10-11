@@ -6,10 +6,12 @@ const client = new MongoClient(url, { useUnifiedTopology: true });
 client.connect();
 const getNamespace = async function (collection) {
   try {
-    return client.db(dbName).collection(collection);
+    // const clnt = await client.connect();
+    const namespace = client.db(dbName).collection(collection);
+    return namespace;
   } catch (err) {
-    console.log(err);
     await client.connect();
+    console.log(err);
     return client.db(dbName).collection(collection);
   }
 };

@@ -72,11 +72,11 @@ export const IndexNavbar = props => {
               <OutlineButton>Register</OutlineButton>
             </Link>
           </ButtonGroup>
-        ):
-        <ButtonGroup>
-          <AccentButton onClick={()=>auth.dispatch(logOut())}>Logout</AccentButton>
-        </ButtonGroup>
-        }
+        ) : (
+          <ButtonGroup>
+            <AccentButton onClick={() => auth.dispatch(logOut())}>Logout</AccentButton>
+          </ButtonGroup>
+        )}
       </IndexNav>
     </IndexNavContainer>
   );
@@ -119,37 +119,37 @@ const ButtonContainer = styled.div`
   display: flex;
   align-items: center;
   @media (max-width: 600px) {
-    ${AccentButton},${LinkButton} {
+    ${LinkButton} {
       display: none;
     }
   }
 `;
-const UserWrapper = styled.div`
-  margin: 0 0 0 1rem;
-  padding: 0.3rem 1rem;
-  cursor: pointer;
-  height: 2.3rem;
-  border: 2px solid rgb(216, 62, 38);
-  position: relative;
-`;
-const Popover = styled.div`
-  opacity: 0;
-  visibility: hidden;
-  position: absolute;
-  top: 2.3rem;
-  right: 0;
-  background: rgb(216, 62, 38);
-  color: white;
-  cursor: pointer;
-  padding: 0.2rem 1rem;
-  transform: translateY(2rem);
-  transition: transform 0.2s;
-  &[aria-hidden="false"] {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-  }
-`;
+// const UserWrapper = styled.div`
+//   margin: 0 0 0 1rem;
+//   padding: 0.3rem 1rem;
+//   cursor: pointer;
+//   height: 2.3rem;
+//   border: 2px solid rgb(216, 62, 38);
+//   position: relative;
+// `;
+// const Popover = styled.div`
+//   opacity: 0;
+//   visibility: hidden;
+//   position: absolute;
+//   top: 2.3rem;
+//   right: 0;
+//   background: rgb(216, 62, 38);
+//   color: white;
+//   cursor: pointer;
+//   padding: 0.2rem 1rem;
+//   transform: translateY(2rem);
+//   transition: transform 0.2s;
+//   &[aria-hidden="false"] {
+//     opacity: 1;
+//     visibility: visible;
+//     transform: translateY(0);
+//   }
+// `;
 export function Navbar(props) {
   const auth = useContext(AuthContext);
   let { min, sec } = props;
@@ -173,29 +173,29 @@ export function Navbar(props) {
       <NavContainer>
         <div>
           <Title>{props.title}</Title>
-          <SubTitle>Instruction</SubTitle>
+          {!props.result && <SubTitle>Instruction</SubTitle>}
         </div>
-        <ProgressBarWrapper desktop>
+        {!props.result && (
+          <React.Fragment>
+            <ProgressBarWrapper desktop>
+              <ProgressBar label="Time" currentValue={currentTimeString} maxValue={props.maxTime} timer />
+              <ProgressBar label="Ques" currentValue={props.questions} maxValue={props.totalNumberOfQuestions} />
+            </ProgressBarWrapper>
+            <ButtonContainer>
+              <LinkButton padding=".5rem">Need Help?</LinkButton>
+              <AccentButton aria-controls="submit" onClick={props.handleSubmit}>
+                Submit Test
+              </AccentButton>
+            </ButtonContainer>
+          </React.Fragment>
+        )}
+      </NavContainer>
+      {!props.result && (
+        <ProgressBarWrapper>
           <ProgressBar label="Time" currentValue={currentTimeString} maxValue={props.maxTime} timer />
           <ProgressBar label="Ques" currentValue={props.questions} maxValue={props.totalNumberOfQuestions} />
         </ProgressBarWrapper>
-        <ButtonContainer>
-          <LinkButton padding=".5rem">Need Help?</LinkButton>
-          <AccentButton aria-controls="submit" onClick={props.handleSubmit}>
-            Submit Test
-          </AccentButton>
-          <UserWrapper onClick={showPopover}>
-            <span>{auth.state.userName || "Sooraj Shukla"}</span>
-            <Popover className="profile-popover" aria-hidden="true">
-              <span onClick={() => auth.dispatch(logOut())}>Logout</span>
-            </Popover>
-          </UserWrapper>
-        </ButtonContainer>
-      </NavContainer>
-      <ProgressBarWrapper>
-        <ProgressBar label="Time" currentValue={currentTimeString} maxValue={props.maxTime} timer />
-        <ProgressBar label="Ques" currentValue={props.questions} maxValue={props.totalNumberOfQuestions} />
-      </ProgressBarWrapper>
+      )}
     </React.Fragment>
   );
 }

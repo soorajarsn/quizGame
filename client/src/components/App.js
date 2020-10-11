@@ -8,6 +8,7 @@ import { loadUser } from "../state/auth/authActions";
 import TestPage from "./pages/TestPage";
 import { ToasterComponent } from "./Toaster";
 import AdminPage from "./pages/AdminPage";
+import ResultPage from "./pages/ResultPage";
 function App() {
   const auth = useContext(AuthContext);
   const info = useContext(InfoContext);
@@ -24,6 +25,7 @@ function App() {
           <Route exact={true} path="/signin" render={props => <SigninPage {...props} />} />
           <Route exact={true} path="/signup" render={props => <SignupPage {...props} />} />
           <Route exact={true} path="/test/:topic" render={props => <TestPage {...props} />} />
+          <Route exact={true} path="/result/:topic" render={props => <ResultPage {...props} />} />
           <Route exact={true} path="/admin/createQuestion" render={props => <AdminPage {...props} />} />
         </Switch>
       </Router>

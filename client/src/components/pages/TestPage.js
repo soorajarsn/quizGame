@@ -6,8 +6,10 @@ import { OrderedList } from "../OrderedList";
 import ListRow from "../List";
 import Axios from "axios";
 import { AuthContext, InfoContext } from "../../state/Store";
-import {clearError} from '../../state/info/infoActions';
-import {Redirect} from 'react-router-dom';
+import { clearError } from "../../state/info/infoActions";
+import { Redirect } from "react-router-dom";
+import Loader from "../Loader";
+import { getConfig } from "../../state/auth/authActions";
 const Grid = styled.div`
   display: grid;
   height: 100%;
@@ -64,61 +66,128 @@ const MainModified = styled(Main)`
   }
   background: rgb(240, 240, 240);
 `;
-const questions = [
-  {
-    question: "The source files for Node.js programs are typically named with the extension...",
-    options: [".js", ".ns", ".node", ".nodejs"],
-  },
-  {
-    question: "The source files for Node.js programs are typically named with the extension...",
-    options: [".js", ".ns", ".node", ".nodejs"],
-  },
-  {
-    question: "The source files for Node.js programs are typically named with the extension...",
-    options: [".js", ".ns", ".node", ".nodejs"],
-  },
-  {
-    question: "The source files for Node.js programs are typically named with the extension...",
-    options: [".js", ".ns", ".node", ".nodejs"],
-  },
-  {
-    question: "The source files for Node.js programs are typically named with the extension...",
-    options: [".js", ".ns", ".node", ".nodejs"],
-  },
-  {
-    question: "The source files for Node.js programs are typically named with the extension...",
-    options: [".js", ".ns", ".node", ".nodejs"],
-  },
-  {
-    question: "The source files for Node.js programs are typically named with the extension...",
-    options: [".js", ".ns", ".node", ".nodejs"],
-  },
-  {
-    question: "The source files for Node.js programs are typically named with the extension...",
-    options: [".js", ".ns", ".node", ".nodejs"],
-  },
-  {
-    question: "The source files for Node.js programs are typically named with the extension...",
-    options: [".js", ".ns", ".node", ".nodejs"],
-  },
-  {
-    question: "The source files for Node.js programs are typically named with the extension...",
-    options: [".js", ".ns", ".node", ".nodejs"],
-  },
-  {
-    question: "The source files for Node.js programs are typically named with the extension...",
-    options: [".js", ".ns", ".node", ".nodejs"],
-  },
-];
+// const questions = [
+//   {
+//     question: "The source files for Node.js programs are typically named with the extension...",
+//     options: [".js", ".ns", ".node", ".nodejs"],
+//   },
+//   {
+//     question: "The source files for Node.js programs are typically named with the extension...",
+//     options: [".js", ".ns", ".node", ".nodejs"],
+//   },
+//   {
+//     question: "The source files for Node.js programs are typically named with the extension...",
+//     options: [".js", ".ns", ".node", ".nodejs"],
+//   },
+//   {
+//     question: "The source files for Node.js programs are typically named with the extension...",
+//     options: [".js", ".ns", ".node", ".nodejs"],
+//   },
+//   {
+//     question: "The source files for Node.js programs are typically named with the extension...",
+//     options: [".js", ".ns", ".node", ".nodejs"],
+//   },
+//   {
+//     question: "The source files for Node.js programs are typically named with the extension...",
+//     options: [".js", ".ns", ".node", ".nodejs"],
+//   },
+//   {
+//     question: "The source files for Node.js programs are typically named with the extension...",
+//     options: [".js", ".ns", ".node", ".nodejs"],
+//   },
+//   {
+//     question: "The source files for Node.js programs are typically named with the extension...",
+//     options: [".js", ".ns", ".node", ".nodejs"],
+//   },
+//   {
+//     question: "The source files for Node.js programs are typically named with the extension...",
+//     options: [".js", ".ns", ".node", ".nodejs"],
+//   },
+//   {
+//     question: "The source files for Node.js programs are typically named with the extension...",
+//     options: [".js", ".ns", ".node", ".nodejs"],
+//   },
+//   {
+//     question: "The source files for Node.js programs are typically named with the extension...",
+//     options: [".js", ".ns", ".node", ".nodejs"],
+//   },
+// ];
 function TestPage(props) {
   const { topic } = props.match.params;
+  const [questions, setQuestions] = useState([]);
   const [time, setTime] = useState({ minute: 0, second: 0 });
-  const maxTime = "30:00";
+  const maxTime = "10:00";
   const maxTimeNumeric = parseInt(maxTime.substring(0, 2)) * 60 + parseInt(maxTime.substring(3));
   const totalNumberOfQuestions = questions.length;
   const [answers, setAnswers] = useState({});
   const [questionsSolved, setQuestionSolved] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [timeOver, setTimeOver] = useState(false);
+  const info = useContext(InfoContext);
   const auth = useContext(AuthContext);
+  useEffect(() => {
+    window.scrollTo();
+  }, []);
+  useEffect(() => {
+    info.dispatch(clearError());
+  }, []);
+  useEffect(() => {
+    setLoading(true);
+    Axios.get("/api/questions/" + topic)
+      .then(res => {
+        setQuestions(res.data.questions);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.log(err);
+        setLoading(false);
+      });
+  }, []);
+  useEffect(() => {
+    let timer = setInterval(() => {
+      if (!loading) {
+        setTime(time => {
+          if (time.minute * 60 + time.second < maxTimeNumeric) {
+            if (time.second + 1 === 60) {
+              return {
+                minute: time.minute + 1,
+                second: 0,
+              };
+            } else {
+              return {
+                ...time,
+                second: time.second + 1,
+              };
+            }
+          } else {
+            setTimeOver(true);
+            return time;
+          }
+        });
+      }
+    }, 1000);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
+  if (timeOver) {
+    submitTest();
+  }
+  const submitTest = () => {
+    setLoading(true);
+    Axios.post("/api/post/response/" + topic, { answers }, getConfig(auth.state))
+      .then(res => {
+        setLoading(false);
+        props.history.push("/result/" + topic);
+      })
+      .catch(err => {});
+  };
+  function handleSubmit(e) {
+    if (e.currentTarget.getAttribute("aria-controls") === "submit") {
+      submitTest();
+    }
+    e.preventDefault();
+  }
   const handleAnsChange = (id, ans) => {
     setAnswers(prev => {
       let newAns = { ...prev, [id]: ans };
@@ -126,42 +195,6 @@ function TestPage(props) {
       return newAns;
     });
   };
-  useEffect(() => {
-    let timer = setInterval(() => {
-      setTime(time => {
-        if (time.minute * 60 + time.second < maxTimeNumeric) {
-          if (time.second + 1 === 60) {
-            return {
-              minute: time.minute + 1,
-              second: 0,
-            };
-          } else {
-            return {
-              ...time,
-              second: time.second + 1,
-            };
-          }
-        } else return time;
-      });
-    }, 1000);
-    return () => {
-      clearTimeout(timer);
-    };
-  }, []);
-  useEffect(() => {
-    window.scrollTo();
-  }, []);
-  const info = useContext(InfoContext);
-  useEffect(()=>{
-    info.dispatch(clearError());
-  },[])
-  function handleSubmit(e) {
-    if (e.currentTarget.getAttribute("aria-controls") === "submit") {
-      Axios.post("/api/post/quizResponse?topic=" + topic, answers);
-      console.log(answers);
-    }
-    e.preventDefault();
-  }
   return (
     <React.Fragment>
       {!auth.state.userLoggedIn ? (
@@ -195,6 +228,7 @@ function TestPage(props) {
           </MainModified>
         </React.Fragment>
       )}
+      {loading && <Loader />}
     </React.Fragment>
   );
 }

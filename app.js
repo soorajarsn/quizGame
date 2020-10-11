@@ -5,6 +5,7 @@ const compression = require('compression');
 const path = require('path');
 const routes = require('./backend/routes/mainRoutes');
 const app = express();
+const logger = require('morgan');
 
 // const socket = require('socket.io');
 // const http = require('http').createServer(app);
@@ -23,6 +24,7 @@ const app = express();
 
 app.use(express.static(path.join(__dirname,"client/dist")));
 app.use(compression());
+app.use(logger('dev'));
 app.use(cors());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
