@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import indexHero from "../assets/index_hero.webp";
 import { IndexNavbar } from "../Navbar";
+import { ToasterComponent } from "../Toaster";
 const HeroContainer = styled.div`
   position: relative;
   display: flex;
