@@ -124,7 +124,7 @@ export const CheckboxWrapper = styled.div`
 export function CheckboxInput(props){
     return (
         <CheckboxWrapper>
-            <Checkbox name={props.name} type="checkbox"/>
+            <Checkbox name={props.name} type="checkbox" value={props.value} onChange={props.onChange}/>
             <div className="box">
                 <i className="fas fa-check icon"></i>
             </div>

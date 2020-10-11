@@ -120,7 +120,7 @@ export const ToasterComponent = props => {
       info.dispatch(clearError());
       info.dispatch(clearSuccess());
       info.dispatch(clearWarning());
-    },1000*5);
+    },1000*3);
   },[])
   return (
     <ToasterContainer>
