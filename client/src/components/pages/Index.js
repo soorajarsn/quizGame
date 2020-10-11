@@ -121,6 +121,7 @@ export const Main = styled.div`
   flex-direction: column;
   justify-content: center;
   background:rgba(0,0,0,.05);
+  min-height:60vh;
   @media (min-width: 700px) {
     padding: 2rem;
   }
